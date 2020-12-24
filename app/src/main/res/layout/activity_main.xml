@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.mykotlin.mvvm.MainViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:onClick="@{()->viewModel.loadRepositories()}"
+        android:clickable="@{viewModel.isLoading?false:true}"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:id="@+id/refresh_button"
+        android:text="Refresh"
+        android:layout_width="160dp"
+        android:layout_height="40dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/repository_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:indeterminate="true"
+        android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+        app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/rv_item_repository"/>
+    <ProgressBar
+        android:indeterminate="true"
+        android:visibility="@{viewModel.isLoading?View.VISIBLE : View.GONE}"
+        app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
